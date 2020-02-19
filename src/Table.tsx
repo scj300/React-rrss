@@ -1,36 +1,50 @@
 
 import React from 'react';
+import {Table, TableHead, TableRow, TableCell} from "@material-ui/core"
 
-const Table = (props: any) => {
-    console.log(props);
-    var posts_html = props.data.map((post : any, index : any) => {
+const THead = (props: any) => {
+    return(
+        <TableHead>
+            <TableRow>
+                <TableCell>Title</TableCell>
+                <TableCell>Content</TableCell>
+                <TableCell>Author</TableCell>
+                <TableCell>Created</TableCell>
+                <TableCell>Updated</TableCell>
+            </TableRow>
+        </TableHead>
+    );
+}
+
+const TBody = (props: any) => {
+    let {data} = props;
+
+    data = data.map((post : any, i : any) => {
         return (
-            <tr key={index}>
-                <td>{post.title}</td>
-                <td>{post.content}</td>
-                <td>{post.author}</td>
-                <td>{post.created}</td>
-                <td>{post.updated}</td>
-            </tr>
+            <TableRow>
+                <TableCell>{post.title}</TableCell>
+                <TableCell>{post.content}</TableCell>
+                <TableCell>{post.author}</TableCell>
+                <TableCell>{post.created}</TableCell>
+                <TableCell>{post.updated}</TableCell>
+            </TableRow>
         );
     });
 
     return (
-        <table>
-            <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Content</th>
-                  <th>Author</th>
-                  <th>Created</th>
-                  <th>Updated</th>
-                </tr>
-            </thead>
-            <tbody>
-              {posts_html}
-            </tbody>
-        </table>
+        <tbody>
+            {data}
+        </tbody>
     );
 }
 
-export default Table;
+const Tabla = (props: any) => {
+    return (
+        <Table>
+            <THead/>
+            <TBody data={props.data}/>
+        </Table>
+    );
+}
+
+export default Tabla;

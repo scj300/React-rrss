@@ -1,29 +1,35 @@
-import React from 'react';
-// import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
-import Table from './Table';
+import Tabla from './Table';
+import axios from 'axios';
+import { Button } from '@material-ui/core';
 
-const App = () => {
-    var posts = [
-        {
-            'title': 'post 1',
-            'content': 'Hello World!',
-            'author': 'Sergio',
-            'created': '12-02-2020 17:52:00',
-            'updated': '12-02-2020 17:52:00'
-        },
-        {
-            'title': 'post 2',
-            'content': '  Hi :D :P ^^',
-            'author': 'Sergio',
-            'created': '12-02-2020 17:52:00',
-            'updated': '12-02-2020 17:52:00'
-        }
-    ];
 
-  return (
-    <Table data={posts}></Table>
-  );
+class App extends Component {
+
+    state = {
+        posts: []
+    };
+
+    componentDidMount(): void {
+        axios.get('http://127.0.0.1:8000/api/post/').then((response) => {
+           // console.log(r.data);
+           this.setState({
+               posts: response.data
+           });
+        });
+
+        axios.post('http://127.0.0.1:8000/api/post/');
+    }
+
+    render() {
+        return (
+            <div>
+                <Tabla data={this.state.posts}></Tabla>
+                <Button variant={"contained"} color="primary" onClick={() => {console.log("Button!!")}}>Send</Button>
+            </div>
+        );
+    }
 }
 
 export default App;
